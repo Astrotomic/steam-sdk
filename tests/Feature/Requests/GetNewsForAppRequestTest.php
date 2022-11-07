@@ -6,7 +6,7 @@ use Astrotomic\SteamSdk\Data\NewsItem;
 use Astrotomic\SteamSdk\SteamConnector;
 use PHPUnit\Framework\Assert;
 
-it('returns news for app', function (int $appid) {
+it('returns news for app', function (int $appid): void {
     $news = app(SteamConnector::class)->getNewsForApp(appid: $appid);
 
     Assert::assertContainsOnlyInstancesOf(NewsItem::class, $news);

@@ -4,11 +4,13 @@ namespace Astrotomic\SteamSdk;
 
 use Astrotomic\SteamSdk\Collections\AchievementPercentageCollection;
 use Astrotomic\SteamSdk\Collections\ApiInterfaceCollection;
+use Astrotomic\SteamSdk\Collections\AppCollection;
 use Astrotomic\SteamSdk\Collections\FriendCollection;
 use Astrotomic\SteamSdk\Collections\NewsItemCollection;
 use Astrotomic\SteamSdk\Collections\PlayerBanCollection;
 use Astrotomic\SteamSdk\Collections\PlayerSummaryCollection;
 use Astrotomic\SteamSdk\Enums\Relationship;
+use Astrotomic\SteamSdk\Requests\GetAppListRequest;
 use Astrotomic\SteamSdk\Requests\GetFriendListRequest;
 use Astrotomic\SteamSdk\Requests\GetGlobalAchievementPercentagesForAppRequest;
 use Astrotomic\SteamSdk\Requests\GetNewsForAppRequest;
@@ -99,6 +101,13 @@ class SteamConnector extends SaloonConnector
     {
         return $this->send(
             new GetPlayerBansRequest($steamids)
+        )->dto();
+    }
+
+    public function getAppList(): AppCollection
+    {
+        return $this->send(
+            new GetAppListRequest()
         )->dto();
     }
 }
