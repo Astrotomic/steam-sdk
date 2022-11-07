@@ -13,19 +13,23 @@ use Astrotomic\SteamSdk\Collections\NewsItemCollection;
 use Astrotomic\SteamSdk\Collections\PlayerBanCollection;
 use Astrotomic\SteamSdk\Collections\PlayerSummaryCollection;
 use Astrotomic\SteamSdk\Enums\Relationship;
+use Astrotomic\SteamSdk\Enums\VanityType;
 use Astrotomic\SteamSdk\Requests\GetAppListRequest;
 use Astrotomic\SteamSdk\Requests\GetFriendListRequest;
 use Astrotomic\SteamSdk\Requests\GetGlobalAchievementPercentagesForAppRequest;
 use Astrotomic\SteamSdk\Requests\GetNewsForAppRequest;
 use Astrotomic\SteamSdk\Requests\GetPlayerBansRequest;
 use Astrotomic\SteamSdk\Requests\GetPlayerSummariesRequest;
-use Astrotomic\SteamSdk\Requests\GetSupportedAPIListRequest;
+use Astrotomic\SteamSdk\Requests\GetSupportedApiListRequest;
 use Astrotomic\SteamSdk\Requests\QueryLocationsRequest;
+use Astrotomic\SteamSdk\Requests\ResolveVanityUrlRequest;
 use Astrotomic\SteamSdk\Responses\SteamResponse;
 use Carbon\CarbonInterface;
+use InvalidArgumentException;
 use Sammyjo20\Saloon\Http\SaloonConnector;
 use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
 use Sammyjo20\Saloon\Traits\Plugins\AlwaysThrowsOnErrors;
+use SteamID;
 
 class SteamConnector extends SaloonConnector
 {
@@ -55,7 +59,7 @@ class SteamConnector extends SaloonConnector
     public function getSupportedApiList(): ApiInterfaceCollection
     {
         return $this->send(
-            new GetSupportedAPIListRequest()
+            new GetSupportedApiListRequest()
         )->dto();
     }
 
@@ -114,5 +118,18 @@ class SteamConnector extends SaloonConnector
         return $this->send(
             new GetAppListRequest()
         )->dto();
+    }
+
+    public function resolveVanityUrl(string $vanityurl): ?SteamID
+    {
+        try {
+            return SteamID::SetFromURL($vanityurl, function (string $vanityurl, int $type): ?string {
+                return $this->send(
+                    new ResolveVanityUrlRequest($vanityurl, VanityType::from($type))
+                )->json('response.steamid');
+            });
+        } catch (InvalidArgumentException) {
+            return null;
+        }
     }
 }

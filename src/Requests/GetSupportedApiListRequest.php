@@ -7,7 +7,7 @@ use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
 
-class GetSupportedAPIListRequest extends SaloonRequest
+class GetSupportedApiListRequest extends SaloonRequest
 {
     use CastsToDto;
 

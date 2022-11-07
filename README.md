@@ -33,6 +33,7 @@ $steam->getPlayerSummaries($steamid);
 | ✅   | **GET**  | `ISteamUser/GetFriendList/v1`                                  | `$steam->getFriendList()`                         |
 | ✅   | **GET**  | `ISteamUser/GetPlayerBans/v1`                                  | `$steam->getPlayerBans()`                         |
 | ✅   | **GET**  | `ISteamUser/GetPlayerSummaries/v2`                             | `$steam->getPlayerSummaries()`                    |
+| ✅   | **GET**  | `ISteamUser/ResolveVanityURL/v1`                               | `$steam->resolveVanityUrl()`                      |
 | ✅   | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2`     | `$steam->getGlobalAchievementPercentagesForApp()` |
 | ✅   | **GET**  | `ISteamWebAPIUtil/GetSupportedAPIList/v1`                      | `$steam->getSupportedApiList()`                   |
 | ✅   | **GET**  | `actions/QueryLocations`                                       | `$steam->queryLocations()`                        |
@@ -47,7 +48,6 @@ $steam->getPlayerSummaries($steamid);
 | 🗒️ | **GET**  | `IPlayerService/GetSteamLevel/v1`                              |                                                   |
 | 🗒️ | **GET**  | `IPlayerService/IsPlayingSharedGame/v1`                        |                                                   |
 | 🗒️ | **GET**  | `ISteamUser/GetUserGroupList/v1`                               |                                                   |
-| 🗒️ | **GET**  | `ISteamUser/ResolveVanityURL/v1`                               |                                                   |
 | 🗒️ | **GET**  | `ISteamUserStats/GetGlobalStatsForGame/v1`                     |                                                   |
 | 🗒️ | **GET**  | `ISteamUserStats/GetNumberOfCurrentPlayers/v1`                 |                                                   |
 | 🗒️ | **GET**  | `ISteamUserStats/GetPlayerAchievements/v1`                     |                                                   |

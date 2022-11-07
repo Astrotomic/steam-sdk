@@ -1,0 +1,1 @@
+{"statusCode":200,"headers":{"Server":["nginx"],"Content-Type":["application\/json; charset=UTF-8"],"Expires":["Mon, 07 Nov 2022 20:52:02 GMT"],"Date":["Mon, 07 Nov 2022 20:52:02 GMT"],"Content-Length":["56"],"Connection":["keep-alive"]},"data":"{\"response\":{\"steamid\":\"76561198061912622\",\"success\":1}}"}
