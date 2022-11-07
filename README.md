@@ -24,15 +24,15 @@ $steam = app(\Astrotomic\SteamSdk\SteamConnector::class);
 $steam->getPlayerSummaries($steamid);
 ```
 
-## Implemented
+### Implemented Requests
 
-|     | Method   | Path                                                           |
-|-----|----------|----------------------------------------------------------------|
-| ✅   | **GET**  | `ISteamNews/GetNewsForApp/v2`                                  |
-| ✅   | **GET**  | `ISteamUser/GetFriendList/v1`                                  |
-| ✅   | **GET**  | `ISteamUser/GetPlayerBans/v1`                                  |
-| ✅   | **GET**  | `ISteamUser/GetPlayerSummaries/v2`                             |
-| ✅   | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2`     |
+|     | HTTP     | Path                                                           | Method                                            |
+|-----|----------|----------------------------------------------------------------|---------------------------------------------------|
+| ✅   | **GET**  | `ISteamNews/GetNewsForApp/v2`                                  | `$steam->getNewsForApp()`                         |
+| ✅   | **GET**  | `ISteamUser/GetFriendList/v1`                                  | `$steam->getFriendList()`                         |
+| ✅   | **GET**  | `ISteamUser/GetPlayerBans/v1`                                  | `$steam->getPlayerBans()`                         |
+| ✅   | **GET**  | `ISteamUser/GetPlayerSummaries/v2`                             | `$steam->getPlayerSummaries()`                    |
+| ✅   | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2`     | `$steam->getGlobalAchievementPercentagesForApp()` |
 | 🆙  | **GET**  | `ISteamNews/GetNewsForApp/v1`                                  |
 | 🆙  | **GET**  | `ISteamUser/GetPlayerSummaries/v1`                             |
 | 🆙  | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v1`     |
