@@ -3,6 +3,7 @@
 namespace Astrotomic\SteamSdk;
 
 use Astrotomic\SteamSdk\Collections\AchievementPercentageCollection;
+use Astrotomic\SteamSdk\Collections\ApiInterfaceCollection;
 use Astrotomic\SteamSdk\Collections\FriendCollection;
 use Astrotomic\SteamSdk\Collections\NewsItemCollection;
 use Astrotomic\SteamSdk\Collections\PlayerBanCollection;
@@ -46,11 +47,11 @@ class SteamConnector extends SaloonConnector
         ]);
     }
 
-    public function getSupportedApiList(): array
+    public function getSupportedApiList(): ApiInterfaceCollection
     {
         return $this->send(
             new GetSupportedAPIListRequest()
-        )->json();
+        )->dto();
     }
 
     public function queryLocations(?string $countryCode = null, ?string $stateCode = null): array

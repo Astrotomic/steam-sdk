@@ -29,7 +29,7 @@ class GetFriendListRequest extends SaloonRequest
     {
         return array_filter([
             'steamid' => $this->steamid,
-            'relationship' => $this->relationship->value,
+            'relationship' => $this->relationship?->value,
         ]);
     }
 
