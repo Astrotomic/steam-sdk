@@ -37,6 +37,15 @@ $steam->getPlayerSummaries($steamid);
 | 🆙  | **GET**  | `ISteamUser/GetPlayerSummaries/v1`                             |                                                   |
 | 🆙  | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v1`     |                                                   |
 | 🛠️ | **GET**  | `ISteamWebAPIUtil/GetSupportedAPIList/v1`                      | `$steam->getSupportedApiList()`                   |
+| 🗒️ | **GET**  | `IPlayerService/GetBadges/v1`                                  |                                                   |
+| 🗒️ | **GET**  | `IPlayerService/GetCommunityBadgeProgress/v1`                  |                                                   |
+| 🗒️ | **GET**  | `IPlayerService/GetOwnedGames/v1`                              |                                                   |
+| 🗒️ | **GET**  | `IPlayerService/GetRecentlyPlayedGames/v1`                     |                                                   |
+| 🗒️ | **GET**  | `IPlayerService/GetSteamLevel/v1`                              |                                                   |
+| 🗒️ | **GET**  | `IPlayerService/IsPlayingSharedGame/v1`                        |                                                   |
+| 🗒️ | **GET**  | `ISteamApps/GetAppList/v1`                                     |                                                   |
+| 🗒️ | **GET**  | `ISteamApps/GetAppList/v2`                                     |                                                   |
+| 🗒️ | **GET**  | `ISteamUser/GetUserGroupList/v1`                               |                                                   |
 | 🗒️ | **GET**  | `ISteamUser/ResolveVanityURL/v1`                               |                                                   |
 | 🗒️ | **GET**  | `ISteamUserStats/GetGlobalStatsForGame/v1`                     |                                                   |
 | 🗒️ | **GET**  | `ISteamUserStats/GetNumberOfCurrentPlayers/v1`                 |                                                   |
@@ -146,12 +155,6 @@ $steam->getPlayerSummaries($steamid);
 | ❓️  | **GET**  | `IGameServersService/QueryByFakeIP/v1`                         |                                                   |
 | ❓️  | **GET**  | `IGameServersService/QueryLoginToken/v1`                       |                                                   |
 | ❓️  | **GET**  | `IInventoryService/GetPriceSheet/v1`                           |                                                   |
-| ❓️  | **GET**  | `IPlayerService/GetBadges/v1`                                  |                                                   |
-| ❓️  | **GET**  | `IPlayerService/GetCommunityBadgeProgress/v1`                  |                                                   |
-| ❓️  | **GET**  | `IPlayerService/GetOwnedGames/v1`                              |                                                   |
-| ❓️  | **GET**  | `IPlayerService/GetRecentlyPlayedGames/v1`                     |                                                   |
-| ❓️  | **GET**  | `IPlayerService/GetSteamLevel/v1`                              |                                                   |
-| ❓️  | **GET**  | `IPlayerService/IsPlayingSharedGame/v1`                        |                                                   |
 | ❓️  | **GET**  | `IPortal2Leaderboards_620/GetBucketizedData/v1`                |                                                   |
 | ❓️  | **GET**  | `IPublishedFileService/GetDetails/v1`                          |                                                   |
 | ❓️  | **GET**  | `IPublishedFileService/GetSubSectionData/v1`                   |                                                   |
@@ -159,8 +162,6 @@ $steam->getPlayerSummaries($steamid);
 | ❓️  | **GET**  | `IPublishedFileService/GetUserFiles/v1`                        |                                                   |
 | ❓️  | **GET**  | `IPublishedFileService/GetUserVoteSummary/v1`                  |                                                   |
 | ❓️  | **GET**  | `IPublishedFileService/QueryFiles/v1`                          |                                                   |
-| ❓️  | **GET**  | `ISteamApps/GetAppList/v1`                                     |                                                   |
-| ❓️  | **GET**  | `ISteamApps/GetAppList/v2`                                     |                                                   |
 | ❓️  | **GET**  | `ISteamApps/GetSDRConfig/v1`                                   |                                                   |
 | ❓️  | **GET**  | `ISteamApps/GetSDRConfig/v2`                                   |                                                   |
 | ❓️  | **GET**  | `ISteamApps/GetServersAtAddress/v1`                            |                                                   |
@@ -172,7 +173,6 @@ $steam->getPlayerSummaries($steamid);
 | ❓️  | **GET**  | `ISteamEconomy/GetAssetClassInfo/v1`                           |                                                   |
 | ❓️  | **GET**  | `ISteamEconomy/GetAssetPrices/v1`                              |                                                   |
 | ❓️  | **GET**  | `ISteamRemoteStorage/GetUGCFileDetails/v1`                     |                                                   |
-| ❓️  | **GET**  | `ISteamUser/GetUserGroupList/v1`                               |                                                   |
 | ❓️  | **GET**  | `ISteamUserAuth/AuthenticateUserTicket/v1`                     |                                                   |
 | ❓️  | **GET**  | `ISteamUserOAuth/GetTokenDetails/v1`                           |                                                   |
 | ❓️  | **GET**  | `ISteamUserStats/GetSchemaForGame/v1`                          |                                                   |
