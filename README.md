@@ -35,6 +35,7 @@ $steam->getPlayerSummaries($steamid);
 | ✅   | **GET**  | `ISteamUser/GetPlayerSummaries/v2`                             | `$steam->getPlayerSummaries()`                    |
 | ✅   | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2`     | `$steam->getGlobalAchievementPercentagesForApp()` |
 | ✅   | **GET**  | `ISteamWebAPIUtil/GetSupportedAPIList/v1`                      | `$steam->getSupportedApiList()`                   |
+| ✅   | **GET**  | `actions/QueryLocations`                                       | `$steam->queryLocations()`                        |
 | 🆙  | **GET**  | `ISteamApps/GetAppList/v1`                                     |                                                   |
 | 🆙  | **GET**  | `ISteamNews/GetNewsForApp/v1`                                  |                                                   |
 | 🆙  | **GET**  | `ISteamUser/GetPlayerSummaries/v1`                             |                                                   |

@@ -6,6 +6,9 @@ use Astrotomic\SteamSdk\Collections\AchievementPercentageCollection;
 use Astrotomic\SteamSdk\Collections\ApiInterfaceCollection;
 use Astrotomic\SteamSdk\Collections\AppCollection;
 use Astrotomic\SteamSdk\Collections\FriendCollection;
+use Astrotomic\SteamSdk\Collections\LocationCityCollection;
+use Astrotomic\SteamSdk\Collections\LocationCountryCollection;
+use Astrotomic\SteamSdk\Collections\LocationStateCollection;
 use Astrotomic\SteamSdk\Collections\NewsItemCollection;
 use Astrotomic\SteamSdk\Collections\PlayerBanCollection;
 use Astrotomic\SteamSdk\Collections\PlayerSummaryCollection;
@@ -56,11 +59,13 @@ class SteamConnector extends SaloonConnector
         )->dto();
     }
 
-    public function queryLocations(?string $countryCode = null, ?string $stateCode = null): array
-    {
+    public function queryLocations(
+        ?string $countrycode = null,
+        ?string $statecode = null
+    ): LocationCountryCollection|LocationStateCollection|LocationCityCollection {
         return $this->send(
-            new QueryLocationsRequest($countryCode, $stateCode)
-        )->json();
+            new QueryLocationsRequest($countrycode, $statecode)
+        )->dto();
     }
 
     public function getNewsForApp(
