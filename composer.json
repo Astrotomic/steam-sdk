@@ -67,7 +67,7 @@
         },
         "laravel": {
             "providers": [
-                "Astrotomic\\Steam\\SteamSdkServiceProvider"
+                "Astrotomic\\SteamSdk\\SteamSdkServiceProvider"
             ]
         }
     },
