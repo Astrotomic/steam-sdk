@@ -7,6 +7,7 @@
 
 [![Total Downloads](https://img.shields.io/packagist/dt/astrotomic/steam-sdk.svg?label=Downloads&style=flat-square)](https://packagist.org/packages/astrotomic/steam-sdk)
 [![PHP Version](https://img.shields.io/packagist/dependency-v/astrotomic/steam-sdk/php?style=flat-square)](https://packagist.org/packages/astrotomic/steam-sdk)
+[![Laravel Version](https://img.shields.io/packagist/dependency-v/astrotomic/steam-sdk/illuminate/support?style=flat-square&label=Laravel)](https://packagist.org/packages/astrotomic/steam-sdk)
 
 ## Installation
 
