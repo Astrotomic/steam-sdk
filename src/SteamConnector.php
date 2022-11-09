@@ -2,16 +2,6 @@
 
 namespace Astrotomic\SteamSdk;
 
-use Astrotomic\SteamSdk\Collections\AchievementPercentageCollection;
-use Astrotomic\SteamSdk\Collections\ApiInterfaceCollection;
-use Astrotomic\SteamSdk\Collections\AppCollection;
-use Astrotomic\SteamSdk\Collections\FriendCollection;
-use Astrotomic\SteamSdk\Collections\LocationCityCollection;
-use Astrotomic\SteamSdk\Collections\LocationCountryCollection;
-use Astrotomic\SteamSdk\Collections\LocationStateCollection;
-use Astrotomic\SteamSdk\Collections\NewsItemCollection;
-use Astrotomic\SteamSdk\Collections\PlayerBanCollection;
-use Astrotomic\SteamSdk\Collections\PlayerSummaryCollection;
 use Astrotomic\SteamSdk\Enums\Relationship;
 use Astrotomic\SteamSdk\Enums\VanityType;
 use Astrotomic\SteamSdk\Requests\GetAppListRequest;
@@ -29,6 +19,7 @@ use InvalidArgumentException;
 use Sammyjo20\Saloon\Http\SaloonConnector;
 use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
 use Sammyjo20\Saloon\Traits\Plugins\AlwaysThrowsOnErrors;
+use Spatie\LaravelData\DataCollection;
 use SteamID;
 
 class SteamConnector extends SaloonConnector
@@ -56,17 +47,15 @@ class SteamConnector extends SaloonConnector
         ]);
     }
 
-    public function getSupportedApiList(): ApiInterfaceCollection
+    public function getSupportedApiList(): DataCollection
     {
         return $this->send(
             new GetSupportedApiListRequest()
         )->dto();
     }
 
-    public function queryLocations(
-        ?string $countrycode = null,
-        ?string $statecode = null
-    ): LocationCountryCollection|LocationStateCollection|LocationCityCollection {
+    public function queryLocations(?string $countrycode = null, ?string $statecode = null): DataCollection
+    {
         return $this->send(
             new QueryLocationsRequest($countrycode, $statecode)
         )->dto();
@@ -79,41 +68,41 @@ class SteamConnector extends SaloonConnector
         int|null $count = null,
         array|null $feeds = null,
         array|null $tags = null,
-    ): NewsItemCollection {
+    ): DataCollection {
         return $this->send(
             new GetNewsForAppRequest($appid, $maxlength, $enddate, $count, $feeds, $tags)
         )->dto();
     }
 
-    public function getGlobalAchievementPercentagesForApp(int $gameid): AchievementPercentageCollection
+    public function getGlobalAchievementPercentagesForApp(int $gameid): DataCollection
     {
         return $this->send(
             new GetGlobalAchievementPercentagesForAppRequest($gameid)
         )->dto();
     }
 
-    public function getPlayerSummaries(array|string $steamids): PlayerSummaryCollection
+    public function getPlayerSummaries(array|string $steamids): DataCollection
     {
         return $this->send(
             new GetPlayerSummariesRequest($steamids)
         )->dto();
     }
 
-    public function getFriendList(string $steamid, ?Relationship $relationship = null): FriendCollection
+    public function getFriendList(string $steamid, ?Relationship $relationship = null): DataCollection
     {
         return $this->send(
             new GetFriendListRequest($steamid, $relationship)
         )->dto();
     }
 
-    public function getPlayerBans(array|string $steamids): PlayerBanCollection
+    public function getPlayerBans(array|string $steamids): DataCollection
     {
         return $this->send(
             new GetPlayerBansRequest($steamids)
         )->dto();
     }
 
-    public function getAppList(): AppCollection
+    public function getAppList(): DataCollection
     {
         return $this->send(
             new GetAppListRequest()

@@ -2,7 +2,9 @@
 
 namespace Astrotomic\SteamSdk\Data;
 
-final class ApiParameter extends DataTransferObject
+use Spatie\LaravelData\Data;
+
+final class ApiParameter extends Data
 {
     public function __construct(
         public readonly string $name,

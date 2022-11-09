@@ -5,9 +5,12 @@ namespace Astrotomic\SteamSdk\Data;
 use Astrotomic\SteamSdk\Enums\CommunityVisibilityState;
 use Astrotomic\SteamSdk\Enums\PersonaState;
 use Carbon\CarbonImmutable;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
+use Spatie\LaravelData\Data;
 use SteamID;
 
-final class PlayerSummary extends DataTransferObject
+final class PlayerSummary extends Data
 {
     public function __construct(
         public readonly string $steamid,
@@ -21,6 +24,7 @@ final class PlayerSummary extends DataTransferObject
         public readonly string $avatarhash,
         public readonly PersonaState $personastate,
         public readonly string|null $primaryclanid = null,
+        #[WithCast(DateTimeInterfaceCast::class, format: 'U')]
         public readonly CarbonImmutable|null $timecreated = null,
         public readonly string|null $realname = null,
         public readonly string|null $gameserverip = null,

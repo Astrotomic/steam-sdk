@@ -2,15 +2,18 @@
 
 namespace Astrotomic\SteamSdk\Data;
 
-use Astrotomic\SteamSdk\Collections\ApiParameterCollection;
+use Spatie\LaravelData\Attributes\DataCollectionOf;
+use Spatie\LaravelData\Data;
+use Spatie\LaravelData\DataCollection;
 
-final class ApiMethod extends DataTransferObject
+final class ApiMethod extends Data
 {
     public function __construct(
         public readonly string $name,
         public readonly int $version,
         public readonly string $httpmethod,
-        public readonly ApiParameterCollection $parameters,
+        #[DataCollectionOf(ApiParameter::class)]
+        public readonly DataCollection $parameters,
     ) {
     }
 }

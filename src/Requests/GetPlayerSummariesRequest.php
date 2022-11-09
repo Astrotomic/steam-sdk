@@ -2,10 +2,11 @@
 
 namespace Astrotomic\SteamSdk\Requests;
 
-use Astrotomic\SteamSdk\Collections\PlayerSummaryCollection;
+use Astrotomic\SteamSdk\Data\PlayerSummary;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Spatie\LaravelData\DataCollection;
 
 class GetPlayerSummariesRequest extends SaloonRequest
 {
@@ -30,8 +31,8 @@ class GetPlayerSummariesRequest extends SaloonRequest
         ];
     }
 
-    protected function castToDto(SaloonResponse $response): PlayerSummaryCollection
+    protected function castToDto(SaloonResponse $response): DataCollection
     {
-        return PlayerSummaryCollection::fromArray($response->json('response.players'));
+        return new DataCollection(PlayerSummary::class, $response->json('response.players'));
     }
 }

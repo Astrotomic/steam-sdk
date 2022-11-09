@@ -2,7 +2,9 @@
 
 namespace Astrotomic\SteamSdk\Data;
 
-final class LocationCity extends DataTransferObject
+use Spatie\LaravelData\Data;
+
+final class LocationCity extends Data
 {
     public function __construct(
         public readonly string $countrycode,

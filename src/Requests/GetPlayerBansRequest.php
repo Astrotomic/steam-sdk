@@ -2,10 +2,11 @@
 
 namespace Astrotomic\SteamSdk\Requests;
 
-use Astrotomic\SteamSdk\Collections\PlayerBanCollection;
+use Astrotomic\SteamSdk\Data\PlayerBan;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Spatie\LaravelData\DataCollection;
 
 class GetPlayerBansRequest extends SaloonRequest
 {
@@ -30,8 +31,8 @@ class GetPlayerBansRequest extends SaloonRequest
         ];
     }
 
-    protected function castToDto(SaloonResponse $response): PlayerBanCollection
+    protected function castToDto(SaloonResponse $response): DataCollection
     {
-        return PlayerBanCollection::fromArray($response->json('players'));
+        return new DataCollection(PlayerBan::class, $response->json('players'));
     }
 }

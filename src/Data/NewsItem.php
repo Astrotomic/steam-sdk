@@ -4,8 +4,11 @@ namespace Astrotomic\SteamSdk\Data;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Support\HtmlString;
+use Spatie\LaravelData\Attributes\WithCast;
+use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
+use Spatie\LaravelData\Data;
 
-final class NewsItem extends DataTransferObject
+final class NewsItem extends Data
 {
     public function __construct(
         public readonly int $appid,
@@ -18,6 +21,7 @@ final class NewsItem extends DataTransferObject
         public readonly string $feedlabel,
         public readonly string $feedname,
         public readonly int $feed_type,
+        #[WithCast(DateTimeInterfaceCast::class, format: 'U')]
         public readonly CarbonImmutable $date,
     ) {
     }

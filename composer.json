@@ -10,12 +10,6 @@
             "role": "Developer"
         }
     ],
-    "homepage": "https://github.com/Astrotomic/steam-sdk",
-    "support": {
-        "issues": "https://github.com/Astrotomic/steam-sdk/issues",
-        "source": "https://github.com/Astrotomic/steam-sdk",
-        "docs": "https://docs.ecologi.com/docs/public-api-docs"
-    },
     "funding": [
         {
             "type": "github",
@@ -32,6 +26,7 @@
         "illuminate/support": "^9.0",
         "sammyjo20/saloon": "^1.5.2",
         "sammyjo20/saloon-laravel": "^1.5.0",
+        "spatie/laravel-data": "^2.0",
         "xpaw/steamid": "^2.0"
     },
     "require-dev": {

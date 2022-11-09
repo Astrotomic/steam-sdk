@@ -2,7 +2,9 @@
 
 namespace Astrotomic\SteamSdk\Data;
 
-final class App extends DataTransferObject
+use Spatie\LaravelData\Data;
+
+final class App extends Data
 {
     public function __construct(
         public readonly int $appid,

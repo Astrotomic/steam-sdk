@@ -2,12 +2,13 @@
 
 namespace Astrotomic\SteamSdk\Requests;
 
-use Astrotomic\SteamSdk\Collections\LocationCityCollection;
-use Astrotomic\SteamSdk\Collections\LocationCountryCollection;
-use Astrotomic\SteamSdk\Collections\LocationStateCollection;
+use Astrotomic\SteamSdk\Data\LocationCity;
+use Astrotomic\SteamSdk\Data\LocationCountry;
+use Astrotomic\SteamSdk\Data\LocationState;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Spatie\LaravelData\DataCollection;
 
 class QueryLocationsRequest extends SaloonRequest
 {
@@ -36,16 +37,15 @@ class QueryLocationsRequest extends SaloonRequest
         return "https://steamcommunity.com/actions/QueryLocations{$query}";
     }
 
-    protected function castToDto(SaloonResponse $response): LocationCountryCollection|LocationStateCollection|LocationCityCollection
+    protected function castToDto(SaloonResponse $response): DataCollection
     {
-        if (! $this->countrycode && ! $this->statecode) {
-            return LocationCountryCollection::fromArray($response->json() ?? []);
-        }
-
-        if ($this->countrycode && ! $this->statecode) {
-            return LocationStateCollection::fromArray($response->json() ?? []);
-        }
-
-        return LocationCityCollection::fromArray($response->json() ?? []);
+        return new DataCollection(
+            dataClass: match (true) {
+                ! $this->countrycode && ! $this->statecode => LocationCountry::class,
+                $this->countrycode && ! $this->statecode => LocationState::class,
+                $this->countrycode && $this->statecode => LocationCity::class,
+            },
+            items: $response->json() ?? []
+        );
     }
 }

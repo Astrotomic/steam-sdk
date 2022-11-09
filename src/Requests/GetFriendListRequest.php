@@ -2,11 +2,12 @@
 
 namespace Astrotomic\SteamSdk\Requests;
 
-use Astrotomic\SteamSdk\Collections\FriendCollection;
+use Astrotomic\SteamSdk\Data\Friend;
 use Astrotomic\SteamSdk\Enums\Relationship;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Spatie\LaravelData\DataCollection;
 
 class GetFriendListRequest extends SaloonRequest
 {
@@ -33,8 +34,8 @@ class GetFriendListRequest extends SaloonRequest
         ]);
     }
 
-    protected function castToDto(SaloonResponse $response): FriendCollection
+    protected function castToDto(SaloonResponse $response): DataCollection
     {
-        return FriendCollection::fromArray($response->json('friendslist.friends'));
+        return new DataCollection(Friend::class, $response->json('friendslist.friends'));
     }
 }

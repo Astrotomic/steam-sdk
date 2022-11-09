@@ -2,10 +2,11 @@
 
 namespace Astrotomic\SteamSdk\Requests;
 
-use Astrotomic\SteamSdk\Collections\AppCollection;
+use Astrotomic\SteamSdk\Data\App;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Spatie\LaravelData\DataCollection;
 
 class GetAppListRequest extends SaloonRequest
 {
@@ -18,8 +19,8 @@ class GetAppListRequest extends SaloonRequest
         return '/ISteamApps/GetAppList/v2';
     }
 
-    protected function castToDto(SaloonResponse $response): AppCollection
+    protected function castToDto(SaloonResponse $response): DataCollection
     {
-        return AppCollection::fromArray($response->json('applist.apps'));
+        return new DataCollection(App::class, $response->json('applist.apps'));
     }
 }

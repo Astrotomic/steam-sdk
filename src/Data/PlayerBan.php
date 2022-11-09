@@ -3,17 +3,26 @@
 namespace Astrotomic\SteamSdk\Data;
 
 use Carbon\CarbonImmutable;
+use Spatie\LaravelData\Attributes\MapInputName;
+use Spatie\LaravelData\Data;
 use SteamID;
 
-final class PlayerBan extends DataTransferObject
+final class PlayerBan extends Data
 {
     public function __construct(
+        #[MapInputName('SteamId')]
         public readonly string $steamid,
+        #[MapInputName('CommunityBanned')]
         public readonly bool $communitybanned,
+        #[MapInputName('VACBanned')]
         public readonly bool $vacbanned,
+        #[MapInputName('NumberOfVACBans')]
         public readonly int $numberofvacbans,
+        #[MapInputName('NumberOfGameBans')]
         public readonly int $numberofgamebans,
+        #[MapInputName('DaysSinceLastBan')]
         public readonly int $dayssincelastban,
+        #[MapInputName('EconomyBan')]
         public readonly string $economyban,
     ) {
     }

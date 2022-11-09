@@ -2,10 +2,11 @@
 
 namespace Astrotomic\SteamSdk\Requests;
 
-use Astrotomic\SteamSdk\Collections\AchievementPercentageCollection;
+use Astrotomic\SteamSdk\Data\AchievementPercentage;
 use Sammyjo20\Saloon\Http\SaloonRequest;
 use Sammyjo20\Saloon\Http\SaloonResponse;
 use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Spatie\LaravelData\DataCollection;
 
 class GetGlobalAchievementPercentagesForAppRequest extends SaloonRequest
 {
@@ -30,8 +31,8 @@ class GetGlobalAchievementPercentagesForAppRequest extends SaloonRequest
         ];
     }
 
-    protected function castToDto(SaloonResponse $response): AchievementPercentageCollection
+    protected function castToDto(SaloonResponse $response): DataCollection
     {
-        return AchievementPercentageCollection::fromArray($response->json('achievementpercentages.achievements'));
+        return new DataCollection(AchievementPercentage::class, $response->json('achievementpercentages.achievements'));
     }
 }
