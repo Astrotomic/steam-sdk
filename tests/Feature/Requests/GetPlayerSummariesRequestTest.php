@@ -18,3 +18,15 @@ it('returns player summaries', function (string $steamid): void {
         UrlAssertions::assertValidLoose($player->avatarfull);
     });
 })->with('userids');
+
+it('returns single player summary', function (string $steamid): void {
+    $player = app(SteamConnector::class)->getPlayerSummary(steamid: $steamid);
+
+    Assert::assertInstanceOf(PlayerSummary::class, $player);
+
+    Assert::assertSame($player->steamid, $player->steamid()->ConvertToUInt64());
+    UrlAssertions::assertValidLoose($player->profileurl);
+    UrlAssertions::assertValidLoose($player->avatar);
+    UrlAssertions::assertValidLoose($player->avatarmedium);
+    UrlAssertions::assertValidLoose($player->avatarfull);
+})->with('userids');

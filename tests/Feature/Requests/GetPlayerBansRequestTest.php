@@ -13,3 +13,11 @@ it('returns player bans', function (string $steamid): void {
         Assert::assertSame($ban->steamid, $ban->steamid()->ConvertToUInt64());
     });
 })->with('userids');
+
+it('returns single player bans', function (string $steamid): void {
+    $ban = app(SteamConnector::class)->getPlayerBan(steamid: $steamid);
+
+    Assert::assertInstanceOf(PlayerBan::class, $ban);
+
+    Assert::assertSame($ban->steamid, $ban->steamid()->ConvertToUInt64());
+})->with('userids');
