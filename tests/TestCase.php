@@ -5,10 +5,9 @@ namespace Tests;
 use Astrotomic\SteamSdk\SteamConnector;
 use Astrotomic\SteamSdk\SteamSdkServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Sammyjo20\Saloon\Http\Fixture;
-use Sammyjo20\Saloon\Http\MockResponse;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\SaloonLaravel\Facades\Saloon;
+use Saloon\Http\Faking\Fixture;
+use Saloon\Http\Faking\MockClient;
+use Saloon\Http\PendingRequest;
 
 abstract class TestCase extends Orchestra
 {
@@ -20,20 +19,21 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Saloon::fake([
-            SteamConnector::class => function (SaloonRequest $request): Fixture {
-                $name = implode('/', array_filter([
-                    parse_url($request->getFullRequestUrl(), PHP_URL_HOST),
-                    mb_strtoupper($request->getMethod() ?? 'GET'),
-                    parse_url($request->getFullRequestUrl(), PHP_URL_PATH),
-                    http_build_query(array_diff_key($request->getQuery(), array_flip(['key', 'format']))),
-                ]));
-
-                return MockResponse::fixture($name);
-            },
-        ]);
-
         $this->steam = new SteamConnector(getenv('STEAM_API_KEY'));
+        $this->steam->withMockClient(
+            new MockClient([
+                SteamConnector::class => function (PendingRequest $request): Fixture {
+                    $name = implode('/', array_filter([
+                        parse_url($request->getUrl(), PHP_URL_HOST),
+                        $request->getMethod()->value,
+                        parse_url($request->getUrl(), PHP_URL_PATH),
+                        http_build_query(array_diff_key($request->queryParameters()->all(), array_flip(['key', 'format']))),
+                    ]));
+
+                    return new Fixture($name);
+                },
+            ])
+        );
     }
 
     protected function getPackageProviders($app): array

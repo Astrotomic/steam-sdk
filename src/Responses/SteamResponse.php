@@ -6,9 +6,9 @@ use Astrotomic\SteamSdk\Exceptions\BadGatewayException;
 use Astrotomic\SteamSdk\Exceptions\BadResponseException;
 use Astrotomic\SteamSdk\Exceptions\ClientException;
 use Astrotomic\SteamSdk\Exceptions\ServerException;
-use Sammyjo20\Saloon\Http\SaloonResponse;
+use Saloon\Http\Responses\Response;
 
-class SteamResponse extends SaloonResponse
+class SteamResponse extends Response
 {
     public function toException(): ?BadResponseException
     {

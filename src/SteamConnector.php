@@ -18,18 +18,18 @@ use Astrotomic\SteamSdk\Requests\ResolveVanityUrlRequest;
 use Astrotomic\SteamSdk\Responses\SteamResponse;
 use Carbon\CarbonInterface;
 use InvalidArgumentException;
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
-use Sammyjo20\Saloon\Traits\Plugins\AlwaysThrowsOnErrors;
+use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Traits\Plugins\AlwaysThrowsOnErrors;
 use Spatie\LaravelData\DataCollection;
 use SteamID;
 
-class SteamConnector extends SaloonConnector
+class SteamConnector extends Connector
 {
     use AcceptsJson;
     use AlwaysThrowsOnErrors;
 
-    protected ?string $response = SteamResponse::class;
+    protected string $response = SteamResponse::class;
 
     public function __construct(
         public readonly ?string $apiKey = null,
@@ -41,7 +41,7 @@ class SteamConnector extends SaloonConnector
         return 'https://api.steampowered.com';
     }
 
-    public function defaultQuery(): array
+    protected function defaultQueryParameters(): array
     {
         return array_filter([
             'key' => $this->apiKey,

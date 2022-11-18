@@ -4,16 +4,16 @@ namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\Friend;
 use Astrotomic\SteamSdk\Enums\Relationship;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Saloon\Contracts\Response;
+use Saloon\Http\Request;
+use Saloon\Traits\Request\CastDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
-class GetFriendListRequest extends SaloonRequest
+class GetFriendListRequest extends Request
 {
-    use CastsToDto;
+    use CastDtoFromResponse;
 
-    protected ?string $method = 'GET';
+    protected string $method = 'GET';
 
     public function __construct(
         public readonly string $steamid,
@@ -26,7 +26,7 @@ class GetFriendListRequest extends SaloonRequest
         return '/ISteamUser/GetFriendList/v1';
     }
 
-    public function defaultQuery(): array
+    protected function defaultQueryParameters(): array
     {
         return array_filter([
             'steamid' => $this->steamid,
@@ -34,7 +34,7 @@ class GetFriendListRequest extends SaloonRequest
         ]);
     }
 
-    protected function castToDto(SaloonResponse $response): DataCollection
+    public function createDtoFromResponse(Response $response): DataCollection
     {
         return new DataCollection(Friend::class, $response->json('friendslist.friends'));
     }

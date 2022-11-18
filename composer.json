@@ -24,8 +24,7 @@
         "php": "^8.1",
         "ext-json": "*",
         "illuminate/support": "^9.0",
-        "sammyjo20/saloon": "^1.5.2",
-        "sammyjo20/saloon-laravel": "^1.5.0",
+        "sammyjo20/saloon": "^v2.x-dev",
         "spatie/laravel-data": "^2.0",
         "xpaw/steamid": "^2.0"
     },
@@ -69,9 +68,9 @@
     "scripts": {
         "post-autoload-dump": [
             "@composer normalize --ansi --no-interaction --quiet",
-            "@composer validate --strict --ansi --no-interaction",
             "@composer thanks --ansi --no-interaction --quiet",
-            "@php vendor/bin/testbench package:discover --ansi"
+            "@php vendor/bin/testbench package:discover --ansi",
+            "@composer validate --strict --ansi --no-interaction"
         ],
         "fix": "@php vendor/bin/pint",
         "normalize": "echo 'composer global require ergebnis/composer-normalize'",
