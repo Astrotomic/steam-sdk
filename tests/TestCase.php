@@ -13,14 +13,11 @@ abstract class TestCase extends Orchestra
 {
     protected $enablesPackageDiscoveries = true;
 
-    protected SteamConnector $steam;
-
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->steam = new SteamConnector(getenv('STEAM_API_KEY'));
-        $this->steam->withMockClient(
+        $this->app->make(SteamConnector::class)->withMockClient(
             new MockClient([
                 SteamConnector::class => function (PendingRequest $request): Fixture {
                     $name = implode('/', array_filter([
