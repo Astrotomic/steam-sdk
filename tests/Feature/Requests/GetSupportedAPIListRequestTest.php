@@ -3,10 +3,11 @@
 use Astrotomic\SteamSdk\Data\ApiInterface;
 use Astrotomic\SteamSdk\Data\ApiMethod;
 use Astrotomic\SteamSdk\Data\ApiParameter;
+use Astrotomic\SteamSdk\SteamConnector;
 use PHPUnit\Framework\Assert;
 
 it('returns supported api list', function (): void {
-    $interfaces = $this->steam->getSupportedApiList();
+    $interfaces = app(SteamConnector::class)->getSupportedApiList();
 
     Assert::assertContainsOnlyInstancesOf(ApiInterface::class, $interfaces);
 

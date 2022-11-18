@@ -2,26 +2,19 @@
 
 namespace Astrotomic\SteamSdk\Exceptions;
 
-use Sammyjo20\Saloon\Exceptions\SaloonRequestException;
-use Sammyjo20\Saloon\Http\SaloonResponse;
+use Saloon\Exceptions\RequestException;
+use Saloon\Http\Responses\Response;
 use Throwable;
 
-class BadResponseException extends SaloonRequestException
+class BadResponseException extends RequestException
 {
-    final public function __construct(SaloonResponse $response, string $message = '', int $code = 0, ?Throwable $previous = null)
+    final public function __construct(Response $response, string $message = '', int $code = 0, ?Throwable $previous = null)
     {
         parent::__construct($response, $message, $code, $previous);
     }
 
-    public static function fromResponse(SaloonResponse $response): static
+    public static function fromResponse(Response $response): static
     {
-        $body = $response->toPsrResponse()->getBody()->getContents();
-
-        return new static($response, $body, $response->status(), $response->getGuzzleException());
-    }
-
-    public function getResponse(): SaloonResponse
-    {
-        return $this->getSaloonResponse();
+        return new static($response, $response->body(), $response->status(), $response->getRequestException());
     }
 }

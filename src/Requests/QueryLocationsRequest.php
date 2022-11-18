@@ -5,16 +5,16 @@ namespace Astrotomic\SteamSdk\Requests;
 use Astrotomic\SteamSdk\Data\LocationCity;
 use Astrotomic\SteamSdk\Data\LocationCountry;
 use Astrotomic\SteamSdk\Data\LocationState;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Saloon\Contracts\Response;
+use Saloon\Http\Request;
+use Saloon\Traits\Request\CastDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
-class QueryLocationsRequest extends SaloonRequest
+class QueryLocationsRequest extends Request
 {
-    use CastsToDto;
+    use CastDtoFromResponse;
 
-    protected ?string $method = 'GET';
+    protected string $method = 'GET';
 
     public function __construct(
         public readonly string|null $countrycode = null,
@@ -37,7 +37,7 @@ class QueryLocationsRequest extends SaloonRequest
         return "https://steamcommunity.com/actions/QueryLocations{$query}";
     }
 
-    protected function castToDto(SaloonResponse $response): DataCollection
+    public function createDtoFromResponse(Response $response): DataCollection
     {
         return new DataCollection(
             dataClass: match (true) {

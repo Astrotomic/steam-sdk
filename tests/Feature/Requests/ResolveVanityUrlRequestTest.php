@@ -1,9 +1,10 @@
 <?php
 
+use Astrotomic\SteamSdk\SteamConnector;
 use PHPUnit\Framework\Assert;
 
 it('returns resolved steamid', closure: function (string $vanityurl, string $expected): void {
-    $steamid = $this->steam->resolveVanityUrl(vanityurl: $vanityurl);
+    $steamid = app(SteamConnector::class)->resolveVanityUrl(vanityurl: $vanityurl);
 
     Assert::assertInstanceOf(SteamID::class, $steamid);
     Assert::assertSame($expected, $steamid->ConvertToUInt64());
@@ -16,7 +17,7 @@ it('returns resolved steamid', closure: function (string $vanityurl, string $exp
 ]);
 
 it('returns null for invalid vanity', closure: function (string $vanityurl): void {
-    $steamid = $this->steam->resolveVanityUrl(vanityurl: $vanityurl);
+    $steamid = app(SteamConnector::class)->resolveVanityUrl(vanityurl: $vanityurl);
 
     Assert::assertNull($steamid);
 })->with([
