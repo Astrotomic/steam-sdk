@@ -15,7 +15,6 @@ final class PlayerSummary extends Data
     public function __construct(
         public readonly string $steamid,
         public readonly CommunityVisibilityState $communityvisibilitystate,
-        public readonly bool $profilestate,
         public readonly string $personaname,
         public readonly string $profileurl,
         public readonly string $avatar,
@@ -23,6 +22,7 @@ final class PlayerSummary extends Data
         public readonly string $avatarfull,
         public readonly string $avatarhash,
         public readonly PersonaState $personastate,
+        public readonly bool $profilestate = false,
         public readonly string|null $primaryclanid = null,
         #[WithCast(DateTimeInterfaceCast::class, format: 'U')]
         public readonly CarbonImmutable|null $timecreated = null,
