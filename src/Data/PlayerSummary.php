@@ -23,15 +23,15 @@ final class PlayerSummary extends Data
         public readonly string $avatarhash,
         public readonly PersonaState $personastate,
         public readonly bool $profilestate = false,
-        public readonly string|null $primaryclanid = null,
+        public readonly ?string $primaryclanid = null,
         #[WithCast(DateTimeInterfaceCast::class, format: 'U')]
-        public readonly CarbonImmutable|null $timecreated = null,
-        public readonly string|null $realname = null,
-        public readonly string|null $gameserverip = null,
-        public readonly string|null $gameextrainfo = null,
-        public readonly string|null $loccountrycode = null,
-        public readonly string|null $locstatecode = null,
-        public readonly int|null $loccityid = null,
+        public readonly ?CarbonImmutable $timecreated = null,
+        public readonly ?string $realname = null,
+        public readonly ?string $gameserverip = null,
+        public readonly ?string $gameextrainfo = null,
+        public readonly ?string $loccountrycode = null,
+        public readonly ?string $locstatecode = null,
+        public readonly ?int $loccityid = null,
     ) {
     }
 

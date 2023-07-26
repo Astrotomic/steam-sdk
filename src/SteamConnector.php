@@ -15,28 +15,25 @@ use Astrotomic\SteamSdk\Requests\GetPlayerSummariesRequest;
 use Astrotomic\SteamSdk\Requests\GetSupportedApiListRequest;
 use Astrotomic\SteamSdk\Requests\QueryLocationsRequest;
 use Astrotomic\SteamSdk\Requests\ResolveVanityUrlRequest;
-use Astrotomic\SteamSdk\Responses\SteamResponse;
 use Carbon\CarbonInterface;
 use InvalidArgumentException;
-use Sammyjo20\Saloon\Http\SaloonConnector;
-use Sammyjo20\Saloon\Traits\Plugins\AcceptsJson;
-use Sammyjo20\Saloon\Traits\Plugins\AlwaysThrowsOnErrors;
+use Saloon\Http\Connector;
+use Saloon\Traits\Plugins\AcceptsJson;
+use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Spatie\LaravelData\DataCollection;
 use SteamID;
 
-class SteamConnector extends SaloonConnector
+class SteamConnector extends Connector
 {
     use AcceptsJson;
-    use AlwaysThrowsOnErrors;
-
-    protected ?string $response = SteamResponse::class;
+    use AlwaysThrowOnErrors;
 
     public function __construct(
         public readonly ?string $apiKey = null,
     ) {
     }
 
-    public function defineBaseUrl(): string
+    public function resolveBaseUrl(): string
     {
         return 'https://api.steampowered.com';
     }
@@ -51,10 +48,6 @@ class SteamConnector extends SaloonConnector
 
     /**
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\ApiInterface>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
     public function getSupportedApiList(): DataCollection
     {
@@ -64,15 +57,9 @@ class SteamConnector extends SaloonConnector
     }
 
     /**
-     * @param  string|null  $countrycode
-     * @param  string|null  $statecode
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\LocationCountry|\Astrotomic\SteamSdk\Data\LocationState|\Astrotomic\SteamSdk\Data\LocationCity>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
-    public function queryLocations(?string $countrycode = null, ?string $statecode = null): DataCollection
+    public function queryLocations(string $countrycode = null, string $statecode = null): DataCollection
     {
         return $this->send(
             new QueryLocationsRequest($countrycode, $statecode)
@@ -80,25 +67,20 @@ class SteamConnector extends SaloonConnector
     }
 
     /**
-     * @param  int  $appid
      * @param  int|null  $maxlength
      * @param  \Carbon\CarbonInterface|null  $enddate
      * @param  int|null  $count
      * @param  array|null  $feeds
      * @param  array|null  $tags
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\NewsItem>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
     public function getNewsForApp(
         int $appid,
-        int|null $maxlength = null,
-        CarbonInterface|null $enddate = null,
-        int|null $count = null,
-        array|null $feeds = null,
-        array|null $tags = null,
+        int $maxlength = null,
+        CarbonInterface $enddate = null,
+        int $count = null,
+        array $feeds = null,
+        array $tags = null,
     ): DataCollection {
         return $this->send(
             new GetNewsForAppRequest($appid, $maxlength, $enddate, $count, $feeds, $tags)
@@ -106,12 +88,7 @@ class SteamConnector extends SaloonConnector
     }
 
     /**
-     * @param  int  $gameid
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\AchievementPercentage>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
     public function getGlobalAchievementPercentagesForApp(int $gameid): DataCollection
     {
@@ -123,10 +100,6 @@ class SteamConnector extends SaloonConnector
     /**
      * @param  array<array-key, string>|string  $steamids
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\PlayerSummary>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
     public function getPlayerSummaries(array|string $steamids): DataCollection
     {
@@ -135,14 +108,6 @@ class SteamConnector extends SaloonConnector
         )->dto();
     }
 
-    /**
-     * @param  string  $steamid
-     * @return \Astrotomic\SteamSdk\Data\PlayerSummary|null
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
-     */
     public function getPlayerSummary(string $steamid): ?PlayerSummary
     {
         return $this->send(
@@ -151,15 +116,9 @@ class SteamConnector extends SaloonConnector
     }
 
     /**
-     * @param  string  $steamid
-     * @param  \Astrotomic\SteamSdk\Enums\Relationship|null  $relationship
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\Friend>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
-    public function getFriendList(string $steamid, ?Relationship $relationship = null): DataCollection
+    public function getFriendList(string $steamid, Relationship $relationship = null): DataCollection
     {
         return $this->send(
             new GetFriendListRequest($steamid, $relationship)
@@ -169,10 +128,6 @@ class SteamConnector extends SaloonConnector
     /**
      * @param  array<array-key, string>|string  $steamids
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\PlayerBan>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
     public function getPlayerBans(array|string $steamids): DataCollection
     {
@@ -181,14 +136,6 @@ class SteamConnector extends SaloonConnector
         )->dto();
     }
 
-    /**
-     * @param  string  $steamid
-     * @return \Astrotomic\SteamSdk\Data\PlayerBan|null
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
-     */
     public function getPlayerBan(string $steamid): ?PlayerBan
     {
         return $this->send(
@@ -198,10 +145,6 @@ class SteamConnector extends SaloonConnector
 
     /**
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\App>
-     *
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \ReflectionException
-     * @throws \Sammyjo20\Saloon\Exceptions\SaloonException
      */
     public function getAppList(): DataCollection
     {

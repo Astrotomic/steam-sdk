@@ -3,11 +3,12 @@
 namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Enums\VanityType;
-use Sammyjo20\Saloon\Http\SaloonRequest;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
 
-class ResolveVanityUrlRequest extends SaloonRequest
+class ResolveVanityUrlRequest extends Request
 {
-    protected ?string $method = 'GET';
+    protected Method $method = Method::GET;
 
     public function __construct(
         public readonly string $vanityurl,
@@ -15,7 +16,7 @@ class ResolveVanityUrlRequest extends SaloonRequest
     ) {
     }
 
-    public function defineEndpoint(): string
+    public function resolveEndpoint(): string
     {
         return '/ISteamUser/ResolveVanityURL/v1';
     }

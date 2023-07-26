@@ -4,28 +4,29 @@ namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\NewsItem;
 use Carbon\CarbonInterface;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use Saloon\Contracts\Response;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+use Saloon\Traits\Request\CastDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
-class GetNewsForAppRequest extends SaloonRequest
+class GetNewsForAppRequest extends Request
 {
-    use CastsToDto;
+    use CastDtoFromResponse;
 
-    protected ?string $method = 'GET';
+    protected Method $method = Method::GET;
 
     public function __construct(
         public readonly int $appid,
-        public readonly int|null $maxlength = null,
-        public readonly CarbonInterface|null $enddate = null,
-        public readonly int|null $count = null,
-        public readonly array|null $feeds = null,
-        public readonly array|null $tags = null,
+        public readonly ?int $maxlength = null,
+        public readonly ?CarbonInterface $enddate = null,
+        public readonly ?int $count = null,
+        public readonly ?array $feeds = null,
+        public readonly ?array $tags = null,
     ) {
     }
 
-    public function defineEndpoint(): string
+    public function resolveEndpoint(): string
     {
         return '/ISteamNews/GetNewsForApp/v2';
     }
@@ -42,7 +43,7 @@ class GetNewsForAppRequest extends SaloonRequest
         ]);
     }
 
-    protected function castToDto(SaloonResponse $response): DataCollection
+    public function createDtoFromResponse(Response $response): DataCollection
     {
         return new DataCollection(NewsItem::class, $response->json('appnews.newsitems'));
     }

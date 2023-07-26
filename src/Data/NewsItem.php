@@ -16,7 +16,7 @@ final class NewsItem extends Data
         public readonly string $title,
         public readonly string $url,
         public readonly bool $is_external_url,
-        public readonly null|string $author,
+        public readonly ?string $author,
         public readonly string $contents,
         public readonly string $feedlabel,
         public readonly string $feedname,

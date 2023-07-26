@@ -5,24 +5,26 @@ namespace Astrotomic\SteamSdk\Requests;
 use Astrotomic\SteamSdk\Data\LocationCity;
 use Astrotomic\SteamSdk\Data\LocationCountry;
 use Astrotomic\SteamSdk\Data\LocationState;
-use Sammyjo20\Saloon\Http\SaloonRequest;
-use Sammyjo20\Saloon\Http\SaloonResponse;
-use Sammyjo20\Saloon\Traits\Plugins\CastsToDto;
+use JsonException;
+use Saloon\Contracts\Response;
+use Saloon\Enums\Method;
+use Saloon\Http\Request;
+use Saloon\Traits\Request\CastDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
-class QueryLocationsRequest extends SaloonRequest
+class QueryLocationsRequest extends Request
 {
-    use CastsToDto;
+    use CastDtoFromResponse;
 
-    protected ?string $method = 'GET';
+    protected Method $method = Method::GET;
 
     public function __construct(
-        public readonly string|null $countrycode = null,
-        public readonly string|null $statecode = null,
+        public readonly ?string $countrycode = null,
+        public readonly ?string $statecode = null,
     ) {
     }
 
-    public function defineEndpoint(): string
+    public function resolveEndpoint(): string
     {
         $query = '';
 
@@ -37,15 +39,21 @@ class QueryLocationsRequest extends SaloonRequest
         return "https://steamcommunity.com/actions/QueryLocations{$query}";
     }
 
-    protected function castToDto(SaloonResponse $response): DataCollection
+    public function createDtoFromResponse(Response $response): DataCollection
     {
+        try {
+            $items = $response->json() ?? [];
+        } catch (JsonException) {
+            $items = [];
+        }
+
         return new DataCollection(
             dataClass: match (true) {
                 ! $this->countrycode && ! $this->statecode => LocationCountry::class,
                 $this->countrycode && ! $this->statecode => LocationState::class,
                 $this->countrycode && $this->statecode => LocationCity::class,
             },
-            items: $response->json() ?? []
+            items: $items
         );
     }
 }

@@ -3,8 +3,8 @@
 use Astrotomic\SteamSdk\Data\LocationCity;
 use Astrotomic\SteamSdk\Data\LocationCountry;
 use Astrotomic\SteamSdk\Data\LocationState;
-use Astrotomic\SteamSdk\Exceptions\ClientException;
 use PHPUnit\Framework\Assert;
+use Saloon\Exceptions\Request\ClientException;
 
 it('returns all countries', closure: function (): void {
     $countries = $this->steam->queryLocations();
