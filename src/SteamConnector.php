@@ -67,11 +67,6 @@ class SteamConnector extends Connector
     }
 
     /**
-     * @param  int|null  $maxlength
-     * @param  \Carbon\CarbonInterface|null  $enddate
-     * @param  int|null  $count
-     * @param  array|null  $feeds
-     * @param  array|null  $tags
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\NewsItem>
      */
     public function getNewsForApp(
