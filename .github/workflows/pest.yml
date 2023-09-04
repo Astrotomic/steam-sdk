@@ -15,7 +15,7 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
 
     steps:
-      - uses: actions/checkout@v3.5.3
+      - uses: actions/checkout@v4.0.0
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
