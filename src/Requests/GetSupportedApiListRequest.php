@@ -3,15 +3,15 @@
 namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\ApiInterface;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
-use Saloon\Traits\Request\CastDtoFromResponse;
+use Saloon\Http\Response;
+use Saloon\Traits\Request\CreatesDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
 class GetSupportedApiListRequest extends Request
 {
-    use CastDtoFromResponse;
+    use CreatesDtoFromResponse;
 
     protected Method $method = Method::GET;
 
@@ -20,8 +20,11 @@ class GetSupportedApiListRequest extends Request
         return '/ISteamWebAPIUtil/GetSupportedAPIList/v1';
     }
 
+    /**
+     * @return DataCollection<array-key, ApiInterface>
+     */
     public function createDtoFromResponse(Response $response): DataCollection
     {
-        return new DataCollection(ApiInterface::class, $response->json('apilist.interfaces'));
+        return ApiInterface::collection($response->json('apilist.interfaces'));
     }
 }

@@ -4,15 +4,15 @@ namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\Friend;
 use Astrotomic\SteamSdk\Enums\Relationship;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
-use Saloon\Traits\Request\CastDtoFromResponse;
+use Saloon\Http\Response;
+use Saloon\Traits\Request\CreatesDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
 class GetFriendListRequest extends Request
 {
-    use CastDtoFromResponse;
+    use CreatesDtoFromResponse;
 
     protected Method $method = Method::GET;
 
@@ -35,8 +35,11 @@ class GetFriendListRequest extends Request
         ]);
     }
 
+    /**
+     * @return DataCollection<array-key, Friend>
+     */
     public function createDtoFromResponse(Response $response): DataCollection
     {
-        return new DataCollection(Friend::class, $response->json('friendslist.friends'));
+        return Friend::collection($response->json('friendslist.friends'));
     }
 }

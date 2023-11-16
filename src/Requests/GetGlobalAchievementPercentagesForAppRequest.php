@@ -3,15 +3,15 @@
 namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\AchievementPercentage;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
-use Saloon\Traits\Request\CastDtoFromResponse;
+use Saloon\Http\Response;
+use Saloon\Traits\Request\CreatesDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
 class GetGlobalAchievementPercentagesForAppRequest extends Request
 {
-    use CastDtoFromResponse;
+    use CreatesDtoFromResponse;
 
     protected Method $method = Method::GET;
 
@@ -32,8 +32,11 @@ class GetGlobalAchievementPercentagesForAppRequest extends Request
         ];
     }
 
+    /**
+     * @return DataCollection<array-key, AchievementPercentage>
+     */
     public function createDtoFromResponse(Response $response): DataCollection
     {
-        return new DataCollection(AchievementPercentage::class, $response->json('achievementpercentages.achievements'));
+        return AchievementPercentage::collection($response->json('achievementpercentages.achievements'));
     }
 }

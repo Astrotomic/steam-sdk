@@ -6,15 +6,15 @@ use Astrotomic\SteamSdk\Data\LocationCity;
 use Astrotomic\SteamSdk\Data\LocationCountry;
 use Astrotomic\SteamSdk\Data\LocationState;
 use JsonException;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
-use Saloon\Traits\Request\CastDtoFromResponse;
+use Saloon\Http\Response;
+use Saloon\Traits\Request\CreatesDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
 class QueryLocationsRequest extends Request
 {
-    use CastDtoFromResponse;
+    use CreatesDtoFromResponse;
 
     protected Method $method = Method::GET;
 
@@ -39,6 +39,9 @@ class QueryLocationsRequest extends Request
         return "https://steamcommunity.com/actions/QueryLocations{$query}";
     }
 
+    /**
+     * @return DataCollection<array-key, LocationCountry|LocationState|LocationCity>
+     */
     public function createDtoFromResponse(Response $response): DataCollection
     {
         try {
@@ -47,13 +50,10 @@ class QueryLocationsRequest extends Request
             $items = [];
         }
 
-        return new DataCollection(
-            dataClass: match (true) {
-                ! $this->countrycode && ! $this->statecode => LocationCountry::class,
-                $this->countrycode && ! $this->statecode => LocationState::class,
-                $this->countrycode && $this->statecode => LocationCity::class,
-            },
-            items: $items
-        );
+        return match (true) {
+            ! $this->countrycode && ! $this->statecode => LocationCountry::collection($items),
+            $this->countrycode && ! $this->statecode => LocationState::collection($items),
+            $this->countrycode && $this->statecode => LocationCity::collection($items),
+        };
     }
 }

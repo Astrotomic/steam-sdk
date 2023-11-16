@@ -12,6 +12,7 @@ use Astrotomic\SteamSdk\Requests\GetGlobalAchievementPercentagesForAppRequest;
 use Astrotomic\SteamSdk\Requests\GetNewsForAppRequest;
 use Astrotomic\SteamSdk\Requests\GetPlayerBansRequest;
 use Astrotomic\SteamSdk\Requests\GetPlayerSummariesRequest;
+use Astrotomic\SteamSdk\Requests\GetSteamLevelRequest;
 use Astrotomic\SteamSdk\Requests\GetSupportedApiListRequest;
 use Astrotomic\SteamSdk\Requests\QueryLocationsRequest;
 use Astrotomic\SteamSdk\Requests\ResolveVanityUrlRequest;
@@ -136,6 +137,13 @@ class SteamConnector extends Connector
         return $this->send(
             new GetPlayerBansRequest($steamid)
         )->dto()->toCollection()->firstWhere('steamid', $steamid);
+    }
+
+    public function getSteamLevel(string $steamid): int
+    {
+        return $this->send(
+            new GetSteamLevelRequest($steamid)
+        )->dto();
     }
 
     /**

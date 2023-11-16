@@ -3,15 +3,15 @@
 namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\PlayerBan;
-use Saloon\Contracts\Response;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
-use Saloon\Traits\Request\CastDtoFromResponse;
+use Saloon\Http\Response;
+use Saloon\Traits\Request\CreatesDtoFromResponse;
 use Spatie\LaravelData\DataCollection;
 
 class GetPlayerBansRequest extends Request
 {
-    use CastDtoFromResponse;
+    use CreatesDtoFromResponse;
 
     protected Method $method = Method::GET;
 
@@ -32,8 +32,11 @@ class GetPlayerBansRequest extends Request
         ];
     }
 
+    /**
+     * @return DataCollection<array-key, PlayerBan>
+     */
     public function createDtoFromResponse(Response $response): DataCollection
     {
-        return new DataCollection(PlayerBan::class, $response->json('players'));
+        return PlayerBan::collection($response->json('players'));
     }
 }
