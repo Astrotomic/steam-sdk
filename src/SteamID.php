@@ -3,7 +3,6 @@
 namespace Astrotomic\SteamSdk;
 
 use Closure;
-use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Stringable;
 use xPaw\Steam\SteamID as xPawSteamID;
@@ -19,7 +18,7 @@ class SteamID implements Stringable
 
     public function __construct(string|int $id)
     {
-        if (is_numeric($id) && Str::isMatch('/^\d+$/', $id)) {
+        if (is_numeric($id) && preg_match('/^\d+$/', $id) === 1) {
             $id = (int) $id;
         }
 
@@ -36,7 +35,7 @@ class SteamID implements Stringable
             },
             function (string|int $id): ?xPawSteamID {
                 if (is_string($id) && str_starts_with($id, 'steam:')) {
-                    return new xPawSteamID(hexdec(Str::after($id, 'steam:')));
+                    return new xPawSteamID(hexdec(substr($id, 6)));
                 }
 
                 return null;
