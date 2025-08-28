@@ -22,7 +22,7 @@ use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
 use Spatie\LaravelData\DataCollection;
-use SteamID;
+use xPaw\Steam\SteamID;
 
 class SteamConnector extends Connector
 {
@@ -31,8 +31,7 @@ class SteamConnector extends Connector
 
     public function __construct(
         public readonly ?string $apiKey = null,
-    ) {
-    }
+    ) {}
 
     public function resolveBaseUrl(): string
     {
@@ -53,14 +52,14 @@ class SteamConnector extends Connector
     public function getSupportedApiList(): DataCollection
     {
         return $this->send(
-            new GetSupportedApiListRequest()
+            new GetSupportedApiListRequest
         )->dto();
     }
 
     /**
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\LocationCountry|\Astrotomic\SteamSdk\Data\LocationState|\Astrotomic\SteamSdk\Data\LocationCity>
      */
-    public function queryLocations(string $countrycode = null, string $statecode = null): DataCollection
+    public function queryLocations(?string $countrycode = null, ?string $statecode = null): DataCollection
     {
         return $this->send(
             new QueryLocationsRequest($countrycode, $statecode)
@@ -72,11 +71,11 @@ class SteamConnector extends Connector
      */
     public function getNewsForApp(
         int $appid,
-        int $maxlength = null,
-        CarbonInterface $enddate = null,
-        int $count = null,
-        array $feeds = null,
-        array $tags = null,
+        ?int $maxlength = null,
+        ?CarbonInterface $enddate = null,
+        ?int $count = null,
+        ?array $feeds = null,
+        ?array $tags = null,
     ): DataCollection {
         return $this->send(
             new GetNewsForAppRequest($appid, $maxlength, $enddate, $count, $feeds, $tags)
@@ -114,7 +113,7 @@ class SteamConnector extends Connector
     /**
      * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\Friend>
      */
-    public function getFriendList(string $steamid, Relationship $relationship = null): DataCollection
+    public function getFriendList(string $steamid, ?Relationship $relationship = null): DataCollection
     {
         return $this->send(
             new GetFriendListRequest($steamid, $relationship)
@@ -152,7 +151,7 @@ class SteamConnector extends Connector
     public function getAppList(): DataCollection
     {
         return $this->send(
-            new GetAppListRequest()
+            new GetAppListRequest
         )->dto();
     }
 

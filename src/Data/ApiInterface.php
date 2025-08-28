@@ -12,6 +12,5 @@ final class ApiInterface extends Data
         public readonly string $name,
         #[DataCollectionOf(ApiMethod::class)]
         public readonly DataCollection $methods,
-    ) {
-    }
+    ) {}
 }

@@ -17,8 +17,7 @@ class GetPlayerSummariesRequest extends Request
 
     public function __construct(
         public readonly array|string $steamids,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {

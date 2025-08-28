@@ -5,7 +5,7 @@ namespace Astrotomic\SteamSdk\Data;
 use Carbon\CarbonImmutable;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Data;
-use SteamID;
+use xPaw\Steam\SteamID;
 
 final class PlayerBan extends Data
 {
@@ -24,8 +24,7 @@ final class PlayerBan extends Data
         public readonly int $dayssincelastban,
         #[MapInputName('EconomyBan')]
         public readonly string $economyban,
-    ) {
-    }
+    ) {}
 
     public function steamid(): SteamID
     {

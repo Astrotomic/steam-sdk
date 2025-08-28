@@ -8,7 +8,7 @@ use Carbon\CarbonImmutable;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
-use SteamID;
+use xPaw\Steam\SteamID;
 
 final class PlayerSummary extends Data
 {
@@ -32,8 +32,7 @@ final class PlayerSummary extends Data
         public readonly ?string $loccountrycode = null,
         public readonly ?string $locstatecode = null,
         public readonly ?int $loccityid = null,
-    ) {
-    }
+    ) {}
 
     public function steamid(): SteamID
     {

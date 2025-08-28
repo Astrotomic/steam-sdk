@@ -15,8 +15,7 @@ class GetSteamLevelRequest extends Request
 
     public function __construct(
         public readonly string $steamid,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {

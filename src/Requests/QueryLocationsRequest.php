@@ -21,8 +21,7 @@ class QueryLocationsRequest extends Request
     public function __construct(
         public readonly ?string $countrycode = null,
         public readonly ?string $statecode = null,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {

@@ -23,8 +23,7 @@ final class NewsItem extends Data
         public readonly int $feed_type,
         #[WithCast(DateTimeInterfaceCast::class, format: 'U')]
         public readonly CarbonImmutable $date,
-    ) {
-    }
+    ) {}
 
     public function url(): string
     {

@@ -7,7 +7,7 @@ use Carbon\CarbonImmutable;
 use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
-use SteamID;
+use xPaw\Steam\SteamID;
 
 final class Friend extends Data
 {
@@ -16,8 +16,7 @@ final class Friend extends Data
         public readonly Relationship $relationship,
         #[WithCast(DateTimeInterfaceCast::class, format: 'U')]
         public readonly CarbonImmutable $friend_since,
-    ) {
-    }
+    ) {}
 
     public function steamid(): SteamID
     {

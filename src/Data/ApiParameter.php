@@ -11,6 +11,5 @@ final class ApiParameter extends Data
         public readonly string $type,
         public readonly bool $optional,
         public readonly ?string $description = null,
-    ) {
-    }
+    ) {}
 }

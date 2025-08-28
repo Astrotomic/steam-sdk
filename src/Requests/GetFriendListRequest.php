@@ -19,8 +19,7 @@ class GetFriendListRequest extends Request
     public function __construct(
         public readonly string $steamid,
         public readonly ?Relationship $relationship = null,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {

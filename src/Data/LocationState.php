@@ -10,6 +10,5 @@ final class LocationState extends Data
         public readonly string $countrycode,
         public readonly string $statecode,
         public readonly string $statename,
-    ) {
-    }
+    ) {}
 }

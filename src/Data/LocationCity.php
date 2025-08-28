@@ -11,6 +11,5 @@ final class LocationCity extends Data
         public readonly string $statecode,
         public readonly int $cityid,
         public readonly string $cityname,
-    ) {
-    }
+    ) {}
 }

@@ -14,6 +14,5 @@ final class ApiMethod extends Data
         public readonly string $httpmethod,
         #[DataCollectionOf(ApiParameter::class)]
         public readonly DataCollection $parameters,
-    ) {
-    }
+    ) {}
 }

@@ -23,8 +23,7 @@ class GetNewsForAppRequest extends Request
         public readonly ?int $count = null,
         public readonly ?array $feeds = null,
         public readonly ?array $tags = null,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {

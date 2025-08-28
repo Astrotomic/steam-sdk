@@ -13,8 +13,7 @@ class ResolveVanityUrlRequest extends Request
     public function __construct(
         public readonly string $vanityurl,
         public readonly VanityType $url_type,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {

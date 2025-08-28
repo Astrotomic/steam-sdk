@@ -17,8 +17,7 @@ class GetGlobalAchievementPercentagesForAppRequest extends Request
 
     public function __construct(
         public readonly int $gameid,
-    ) {
-    }
+    ) {}
 
     public function resolveEndpoint(): string
     {
