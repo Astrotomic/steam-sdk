@@ -1,6 +1,7 @@
 <?php
 
 use PHPUnit\Framework\Assert;
+use xPaw\Steam\SteamID;
 
 it('returns resolved steamid', closure: function (string $vanityurl, string $expected): void {
     $steamid = $this->steam->resolveVanityUrl(vanityurl: $vanityurl);
