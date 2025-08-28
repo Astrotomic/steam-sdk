@@ -3,11 +3,11 @@
 namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\PlayerSummary;
+use Illuminate\Support\Collection;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Request\CreatesDtoFromResponse;
-use Spatie\LaravelData\DataCollection;
 
 class GetPlayerSummariesRequest extends Request
 {
@@ -32,10 +32,10 @@ class GetPlayerSummariesRequest extends Request
     }
 
     /**
-     * @return DataCollection<array-key, PlayerSummary>
+     * @return Collection<array-key, PlayerSummary>
      */
-    public function createDtoFromResponse(Response $response): DataCollection
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return PlayerSummary::collection($response->json('response.players'));
+        return new Collection(PlayerSummary::collect($response->json('response.players')));
     }
 }

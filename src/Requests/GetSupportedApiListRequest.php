@@ -3,11 +3,11 @@
 namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\ApiInterface;
+use Illuminate\Support\Collection;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Request\CreatesDtoFromResponse;
-use Spatie\LaravelData\DataCollection;
 
 class GetSupportedApiListRequest extends Request
 {
@@ -21,10 +21,10 @@ class GetSupportedApiListRequest extends Request
     }
 
     /**
-     * @return DataCollection<array-key, ApiInterface>
+     * @return Collection<array-key, ApiInterface>
      */
-    public function createDtoFromResponse(Response $response): DataCollection
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return ApiInterface::collection($response->json('apilist.interfaces'));
+        return new Collection(ApiInterface::collect($response->json('apilist.interfaces')));
     }
 }

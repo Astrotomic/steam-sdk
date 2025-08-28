@@ -3,11 +3,11 @@
 namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\App;
+use Illuminate\Support\Collection;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Request\CreatesDtoFromResponse;
-use Spatie\LaravelData\DataCollection;
 
 class GetAppListRequest extends Request
 {
@@ -21,10 +21,10 @@ class GetAppListRequest extends Request
     }
 
     /**
-     * @return DataCollection<array-key, App>
+     * @return Collection<array-key, App>
      */
-    public function createDtoFromResponse(Response $response): DataCollection
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return App::collection($response->json('applist.apps'));
+        return new Collection(App::collect($response->json('applist.apps')));
     }
 }

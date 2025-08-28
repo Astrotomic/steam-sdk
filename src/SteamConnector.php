@@ -2,6 +2,14 @@
 
 namespace Astrotomic\SteamSdk;
 
+use Astrotomic\SteamSdk\Data\AchievementPercentage;
+use Astrotomic\SteamSdk\Data\ApiInterface;
+use Astrotomic\SteamSdk\Data\App;
+use Astrotomic\SteamSdk\Data\Friend;
+use Astrotomic\SteamSdk\Data\LocationCity;
+use Astrotomic\SteamSdk\Data\LocationCountry;
+use Astrotomic\SteamSdk\Data\LocationState;
+use Astrotomic\SteamSdk\Data\NewsItem;
 use Astrotomic\SteamSdk\Data\PlayerBan;
 use Astrotomic\SteamSdk\Data\PlayerSummary;
 use Astrotomic\SteamSdk\Enums\Relationship;
@@ -17,11 +25,11 @@ use Astrotomic\SteamSdk\Requests\GetSupportedApiListRequest;
 use Astrotomic\SteamSdk\Requests\QueryLocationsRequest;
 use Astrotomic\SteamSdk\Requests\ResolveVanityUrlRequest;
 use Carbon\CarbonInterface;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Saloon\Http\Connector;
 use Saloon\Traits\Plugins\AcceptsJson;
 use Saloon\Traits\Plugins\AlwaysThrowOnErrors;
-use Spatie\LaravelData\DataCollection;
 use xPaw\Steam\SteamID;
 
 class SteamConnector extends Connector
@@ -47,27 +55,27 @@ class SteamConnector extends Connector
     }
 
     /**
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\ApiInterface>
+     * @return Collection<array-key, ApiInterface>
      */
-    public function getSupportedApiList(): DataCollection
+    public function getSupportedApiList(): Collection
     {
         return $this->send(
             new GetSupportedApiListRequest
-        )->dto();
+        )->dtoOrFail();
     }
 
     /**
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\LocationCountry|\Astrotomic\SteamSdk\Data\LocationState|\Astrotomic\SteamSdk\Data\LocationCity>
+     * @return Collection<array-key, LocationCountry|LocationState|LocationCity>
      */
-    public function queryLocations(?string $countrycode = null, ?string $statecode = null): DataCollection
+    public function queryLocations(?string $countrycode = null, ?string $statecode = null): Collection
     {
         return $this->send(
             new QueryLocationsRequest($countrycode, $statecode)
-        )->dto();
+        )->dtoOrFail();
     }
 
     /**
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\NewsItem>
+     * @return Collection<array-key, NewsItem>
      */
     public function getNewsForApp(
         int $appid,
@@ -76,83 +84,79 @@ class SteamConnector extends Connector
         ?int $count = null,
         ?array $feeds = null,
         ?array $tags = null,
-    ): DataCollection {
+    ): Collection {
         return $this->send(
             new GetNewsForAppRequest($appid, $maxlength, $enddate, $count, $feeds, $tags)
-        )->dto();
+        )->dtoOrFail();
     }
 
     /**
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\AchievementPercentage>
+     * @return Collection<array-key, AchievementPercentage>
      */
-    public function getGlobalAchievementPercentagesForApp(int $gameid): DataCollection
+    public function getGlobalAchievementPercentagesForApp(int $gameid): Collection
     {
         return $this->send(
             new GetGlobalAchievementPercentagesForAppRequest($gameid)
-        )->dto();
+        )->dtoOrFail();
     }
 
     /**
      * @param  array<array-key, string>|string  $steamids
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\PlayerSummary>
+     * @return Collection<array-key, PlayerSummary>
      */
-    public function getPlayerSummaries(array|string $steamids): DataCollection
+    public function getPlayerSummaries(array|string $steamids): Collection
     {
         return $this->send(
             new GetPlayerSummariesRequest($steamids)
-        )->dto();
+        )->dtoOrFail();
     }
 
     public function getPlayerSummary(string $steamid): ?PlayerSummary
     {
-        return $this->send(
-            new GetPlayerSummariesRequest($steamid)
-        )->dto()->toCollection()->firstWhere('steamid', $steamid);
+        return $this->getPlayerSummaries($steamid)->firstWhere('steamid', $steamid);
     }
 
     /**
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\Friend>
+     * @return Collection<array-key, Friend>
      */
-    public function getFriendList(string $steamid, ?Relationship $relationship = null): DataCollection
+    public function getFriendList(string $steamid, ?Relationship $relationship = null): Collection
     {
         return $this->send(
             new GetFriendListRequest($steamid, $relationship)
-        )->dto();
+        )->dtoOrFail();
     }
 
     /**
      * @param  array<array-key, string>|string  $steamids
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\PlayerBan>
+     * @return Collection<array-key, PlayerBan>
      */
-    public function getPlayerBans(array|string $steamids): DataCollection
+    public function getPlayerBans(array|string $steamids): Collection
     {
         return $this->send(
             new GetPlayerBansRequest($steamids)
-        )->dto();
+        )->dtoOrFail();
     }
 
     public function getPlayerBan(string $steamid): ?PlayerBan
     {
-        return $this->send(
-            new GetPlayerBansRequest($steamid)
-        )->dto()->toCollection()->firstWhere('steamid', $steamid);
+        return $this->getPlayerBans($steamid)->firstWhere('steamid', $steamid);
     }
 
     public function getSteamLevel(string $steamid): int
     {
         return $this->send(
             new GetSteamLevelRequest($steamid)
-        )->dto();
+        )->dtoOrFail();
     }
 
     /**
-     * @return \Spatie\LaravelData\DataCollection<array-key, \Astrotomic\SteamSdk\Data\App>
+     * @return Collection<array-key, App>
      */
-    public function getAppList(): DataCollection
+    public function getAppList(): Collection
     {
         return $this->send(
             new GetAppListRequest
-        )->dto();
+        )->dtoOrFail();
     }
 
     public function resolveVanityUrl(string $vanityurl): ?SteamID

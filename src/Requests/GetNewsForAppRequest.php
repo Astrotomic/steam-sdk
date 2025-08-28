@@ -4,11 +4,11 @@ namespace Astrotomic\SteamSdk\Requests;
 
 use Astrotomic\SteamSdk\Data\NewsItem;
 use Carbon\CarbonInterface;
+use Illuminate\Support\Collection;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 use Saloon\Http\Response;
 use Saloon\Traits\Request\CreatesDtoFromResponse;
-use Spatie\LaravelData\DataCollection;
 
 class GetNewsForAppRequest extends Request
 {
@@ -43,10 +43,10 @@ class GetNewsForAppRequest extends Request
     }
 
     /**
-     * @return DataCollection<array-key, NewsItem>
+     * @return Collection<array-key, NewsItem>
      */
-    public function createDtoFromResponse(Response $response): DataCollection
+    public function createDtoFromResponse(Response $response): Collection
     {
-        return NewsItem::collection($response->json('appnews.newsitems'));
+        return new Collection(NewsItem::collect($response->json('appnews.newsitems')));
     }
 }
