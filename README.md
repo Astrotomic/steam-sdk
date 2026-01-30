@@ -29,7 +29,7 @@ $steam->getPlayerSummaries($steamid);
 
 |    | HTTP     | Path                                                           | Method                                            |
 |----|----------|----------------------------------------------------------------|---------------------------------------------------|
-| ✅  | **GET**  | `ISteamApps/GetAppList/v2`                                     | `$steam->getAppList()`                            |
+| ✅  | **GET**  | `IStoreService/GetAppList/v1`                                  | `$steam->getAppList()`                            |
 | ✅  | **GET**  | `ISteamNews/GetNewsForApp/v2`                                  | `$steam->getNewsForApp()`                         |
 | ✅  | **GET**  | `ISteamUser/GetFriendList/v1`                                  | `$steam->getFriendList()`                         |
 | ✅  | **GET**  | `ISteamUser/GetPlayerBans/v1`                                  | `$steam->getPlayerBans()`                         |
@@ -38,7 +38,6 @@ $steam->getPlayerSummaries($steamid);
 | ✅  | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v2`     | `$steam->getGlobalAchievementPercentagesForApp()` |
 | ✅  | **GET**  | `ISteamWebAPIUtil/GetSupportedAPIList/v1`                      | `$steam->getSupportedApiList()`                   |
 | ✅  | **GET**  | `actions/QueryLocations`                                       | `$steam->queryLocations()`                        |
-| ✅  | **GET**  | `ISteamApps/GetAppList/v1`                                     | `$steam->getAppList()`                            |
 | ✅  | **GET**  | `ISteamNews/GetNewsForApp/v1`                                  | `$steam->getNewsForApp()`                         |
 | ✅  | **GET**  | `ISteamUser/GetPlayerSummaries/v1`                             | `$steam->getPlayerSummaries()`                    |
 | ✅  | **GET**  | `ISteamUserStats/GetGlobalAchievementPercentagesForApp/v1`     | `$steam->getGlobalAchievementPercentagesForApp()` |
@@ -180,7 +179,6 @@ $steam->getPlayerSummaries($steamid);
 | ❓️ | **GET**  | `ISteamUserStats/GetSchemaForGame/v1`                          |                                                   |
 | ❓️ | **GET**  | `ISteamUserStats/GetSchemaForGame/v2`                          |                                                   |
 | ❓️ | **GET**  | `ISteamWebAPIUtil/GetServerInfo/v1`                            |                                                   |
-| ❓️ | **GET**  | `IStoreService/GetAppList/v1`                                  |                                                   |
 | ❓️ | **GET**  | `ITFItems_440/GetGoldenWrenches/v1`                            |                                                   |
 | ❓️ | **GET**  | `ITFItems_440/GetGoldenWrenches/v2`                            |                                                   |
 | ❓️ | **GET**  | `ITFPromos_440/GetItemID/v1`                                   |                                                   |

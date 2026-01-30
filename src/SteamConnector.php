@@ -167,12 +167,27 @@ class SteamConnector extends Connector
     }
 
     /**
-     * @return Collection<array-key, App>
+     * @return array<App>
      */
-    public function getAppList(): Collection
-    {
+    public function getAppList(
+        ?int $if_modified_since = null,
+        ?bool $include_games = null,
+        ?bool $include_dlc = null,
+        ?bool $include_software = null,
+        ?bool $include_videos = null,
+        ?bool $include_hardware = null,
+        ?string $have_description_language = null,
+    ): array {
         return $this->send(
-            new GetAppListRequest
+            new GetAppListRequest(
+                $if_modified_since,
+                $include_games,
+                $include_dlc,
+                $include_software,
+                $include_videos,
+                $include_hardware,
+                $have_description_language,
+            )
         )->dtoOrFail();
     }
 
