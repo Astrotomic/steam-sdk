@@ -13,8 +13,10 @@ use Astrotomic\SteamSdk\Data\NewsItem;
 use Astrotomic\SteamSdk\Data\PlayerBan;
 use Astrotomic\SteamSdk\Data\PlayerSummary;
 use Astrotomic\SteamSdk\Data\RecentlyPlayedApp;
+use Astrotomic\SteamSdk\Data\StoreApp;
 use Astrotomic\SteamSdk\Enums\Relationship;
 use Astrotomic\SteamSdk\Enums\VanityType;
+use Astrotomic\SteamSdk\Requests\AppDetailsRequest;
 use Astrotomic\SteamSdk\Requests\GetAppListRequest;
 use Astrotomic\SteamSdk\Requests\GetFriendListRequest;
 use Astrotomic\SteamSdk\Requests\GetGlobalAchievementPercentagesForAppRequest;
@@ -173,6 +175,13 @@ class SteamConnector extends Connector
     {
         return $this->send(
             new GetAppListRequest
+        )->dtoOrFail();
+    }
+
+    public function appDetails(int $appid, ?string $countrycode = null): StoreApp
+    {
+        return $this->send(
+            new AppDetailsRequest($appid, $countrycode)
         )->dtoOrFail();
     }
 
