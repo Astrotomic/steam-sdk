@@ -10,3 +10,10 @@ it('returns a player\'s recently played apps', function (string $steamid): void 
     Assert::assertContainsOnlyInstancesOf(RecentlyPlayedApp::class, $apps);
 
 })->with('userids');
+
+it('returns an empty collection', function (string $steamid): void {
+    $apps = app(SteamConnector::class)->getRecentlyPlayedGames(steamid: $steamid);
+
+    Assert::assertEmpty($apps);
+
+})->with('privateuserids');

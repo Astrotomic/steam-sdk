@@ -1,0 +1,14 @@
+{
+    "statusCode": 200,
+    "headers": {
+        "Server": "nginx",
+        "Content-Type": "application\/json; charset=UTF-8",
+        "X-eresult": "15",
+        "Expires": "Sat, 07 Feb 2026 23:24:13 GMT",
+        "Date": "Sat, 07 Feb 2026 23:24:13 GMT",
+        "Content-Length": "15",
+        "Connection": "keep-alive"
+    },
+    "data": "{\"response\":{}}",
+    "context": []
+}

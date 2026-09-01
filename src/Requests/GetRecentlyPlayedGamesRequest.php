@@ -37,6 +37,11 @@ class GetRecentlyPlayedGamesRequest extends Request
 
     public function createDtoFromResponse(Response $response): Collection
     {
-        return new Collection(RecentlyPlayedApp::collect($response->json('response.games')));
+        $games = $response->json('response.games');
+        if ($games !== null) {
+            return new Collection(RecentlyPlayedApp::collect($games));
+        } else {
+            return new Collection;
+        }
     }
 }
