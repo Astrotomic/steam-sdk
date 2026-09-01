@@ -10,6 +10,7 @@ use Astrotomic\SteamSdk\Data\LocationCity;
 use Astrotomic\SteamSdk\Data\LocationCountry;
 use Astrotomic\SteamSdk\Data\LocationState;
 use Astrotomic\SteamSdk\Data\NewsItem;
+use Astrotomic\SteamSdk\Data\OwnedApp;
 use Astrotomic\SteamSdk\Data\PlayerBan;
 use Astrotomic\SteamSdk\Data\PlayerSummary;
 use Astrotomic\SteamSdk\Data\RecentlyPlayedApp;
@@ -19,6 +20,7 @@ use Astrotomic\SteamSdk\Requests\GetAppListRequest;
 use Astrotomic\SteamSdk\Requests\GetFriendListRequest;
 use Astrotomic\SteamSdk\Requests\GetGlobalAchievementPercentagesForAppRequest;
 use Astrotomic\SteamSdk\Requests\GetNewsForAppRequest;
+use Astrotomic\SteamSdk\Requests\GetOwnedGamesRequest;
 use Astrotomic\SteamSdk\Requests\GetPlayerBansRequest;
 use Astrotomic\SteamSdk\Requests\GetPlayerSummariesRequest;
 use Astrotomic\SteamSdk\Requests\GetRecentlyPlayedGamesRequest;
@@ -148,6 +150,24 @@ class SteamConnector extends Connector
     {
         return $this->send(
             new GetSteamLevelRequest($steamid)
+        )->dtoOrFail();
+    }
+
+    /**
+     * @return Collection<array-key, OwnedApp>
+     */
+    public function getOwnedGames(string $steamid,
+        ?bool $include_appinfo = null,
+        ?bool $include_extended_appinfo = null,
+        ?bool $include_played_free_games = null, ): Collection
+    {
+        return $this->send(
+            new GetOwnedGamesRequest(
+                $steamid,
+                $include_appinfo,
+                $include_extended_appinfo,
+                $include_played_free_games,
+            )
         )->dtoOrFail();
     }
 
