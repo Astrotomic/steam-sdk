@@ -6,9 +6,9 @@ use Astrotomic\SteamSdk\SteamConnector;
 use Astrotomic\SteamSdk\SteamSdkServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Saloon\Http\Faking\Fixture;
+use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Http\PendingRequest;
-use Saloon\Laravel\Facades\Saloon;
 
 abstract class TestCase extends Orchestra
 {
@@ -20,7 +20,8 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Saloon::fake([
+        MockClient::destroyGlobal();
+        MockClient::global([
             SteamConnector::class => function (PendingRequest $request): Fixture {
                 $name = implode('/', array_filter([
                     parse_url($request->getUrl(), PHP_URL_HOST),
