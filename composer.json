@@ -26,7 +26,7 @@
         "illuminate/collections": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
         "illuminate/support": "^9.0 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
         "saloonphp/saloon": "^4.0",
-        "spatie/laravel-data": "^4.0",
+        "spatie/laravel-data": "^3.0 || ^4.0",
         "xpaw/steamid": "^4.0"
     },
     "require-dev": {
