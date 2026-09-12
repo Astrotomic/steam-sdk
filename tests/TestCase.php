@@ -5,7 +5,6 @@ namespace Tests;
 use Astrotomic\SteamSdk\SteamConnector;
 use Astrotomic\SteamSdk\SteamSdkServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Saloon\Http\Faking\Fixture;
 use Saloon\Http\Faking\MockClient;
 use Saloon\Http\Faking\MockResponse;
 use Saloon\Http\PendingRequest;
@@ -22,7 +21,7 @@ abstract class TestCase extends Orchestra
 
         MockClient::destroyGlobal();
         MockClient::global([
-            SteamConnector::class => function (PendingRequest $request): Fixture {
+            SteamConnector::class => function (PendingRequest $request): MockResponse {
                 $name = implode('/', array_filter([
                     parse_url($request->getUrl(), PHP_URL_HOST),
                     $request->getMethod()->value,
@@ -30,7 +29,17 @@ abstract class TestCase extends Orchestra
                     http_build_query(array_diff_key($request->query()->all(), array_flip(['key', 'format']))),
                 ]));
 
-                return MockResponse::fixture($name);
+                $fixture = json_decode(
+                    file_get_contents(__DIR__."/Fixtures/Saloon/{$name}.json"),
+                    true,
+                    flags: JSON_THROW_ON_ERROR,
+                );
+
+                return MockResponse::make(
+                    body: $fixture['data'],
+                    status: $fixture['statusCode'],
+                    headers: $fixture['headers'],
+                );
             },
         ]);
 
