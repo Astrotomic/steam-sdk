@@ -18,6 +18,8 @@ class QueryLocationsRequest extends Request
 
     protected Method $method = Method::GET;
 
+    public ?bool $allowBaseUrlOverride = true;
+
     public function __construct(
         public readonly ?string $countrycode = null,
         public readonly ?string $statecode = null,
